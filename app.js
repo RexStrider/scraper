@@ -28,17 +28,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
 
-// app.get("/test", async function(req, res) {
-//   const article = new Article({title: "title", href: "href"});
-//   try {
-//     await article.save();
-//     res.send("success!");
-//   }
-//   catch (e) {
-//     res.send(e);
-//   }
-// });
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

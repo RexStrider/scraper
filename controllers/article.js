@@ -1,19 +1,9 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const Article = require("../models/article");
+const SavedArticle = require("../models/savedArticle");
 
-async function addArticle(req, res) {
-    const article = new Article({title: "nyt", href: "http://nyt.com"});
-    try {
-        await article.save();
-        res.json(article);
-    }
-    catch (e) {
-        res.json(e);
-    }
-}
-
-async function scrapeArticles(req, res) {
+exports.scrapeArticles = async function(req, res) {
     try {
       let response = await axios.get('https://www.nytimes.com/section/us')
       let $ = cheerio.load(response.data)
@@ -37,7 +27,36 @@ async function scrapeArticles(req, res) {
     }
 }
 
-module.exports = {
-    addArticle,
-    scrapeArticles
+exports.getArticles = async function(req, res) {
+  try {
+    const articles = await Article.find({});
+    console.log("articles retrieved");
+    res.render('index', {articles});
+  }
+  catch (e) {
+    console.log("an error occurred");
+    res.json(`error: ${e}`);
+  }
+}
+
+exports.saveArticle = async function(req, res) {
+  try {
+    var article = await Article.findOne({_id: req.params.id});
+
+    // var title = article.title;
+    
+    const savedArticle  = new SavedArticle({
+      title: article.title,
+      summary: article.summary,
+      href: article.href
+    });
+
+    await savedArticle.save();
+    console.log("article saved");
+    res.json({message: "OK", savedArticle});
+  }
+  catch (e) {
+    console.log(`error: ${e}`);
+    res.json({error: `Uh Oh... we could not save your article. Have you already saved this article? "${article.title}"`});
+  }
 }
