@@ -20,10 +20,10 @@ exports.scrapeArticles = async function(req, res) {
         });
         await article.save();
       }
-      res.send('got it');
-    } catch(err) {
-      console.log("ruh roh... we got a problem...");
-      res.send( `error: ${err}` );
+      res.render('scraped', {message: "Articles have been scraped"});
+    } catch(error) {
+      console.log(error.stack);
+      res.render('error', {message: "I'm sorry, an error has occurred", error} );
     }
 }
 
