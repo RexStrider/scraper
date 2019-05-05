@@ -6,5 +6,6 @@ var articleController = require('../controllers/article');
 router.get('/', articleController.getArticles);
 router.get('/create', articleController.scrapeArticles);
 router.get('/save/:id', articleController.saveArticle);
+router.get('/save', articleController.getSavedArticles);
 
 module.exports = router;

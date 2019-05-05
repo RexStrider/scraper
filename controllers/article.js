@@ -1,5 +1,6 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const mongoose = require("mongoose");
 const Article = require("../models/article");
 const SavedArticle = require("../models/savedArticle");
 
@@ -22,7 +23,6 @@ exports.scrapeArticles = async function(req, res) {
       }
       res.render('scraped', {message: "Articles have been scraped"});
     } catch(error) {
-      console.log(error.stack);
       res.render('error', {message: "I'm sorry, an error has occurred", error} );
     }
 }
@@ -33,30 +33,44 @@ exports.getArticles = async function(req, res) {
     console.log("articles retrieved");
     res.render('index', {articles});
   }
-  catch (e) {
-    console.log("an error occurred");
-    res.json(`error: ${e}`);
+  catch (error) {
+    res.render('error', {message: "I'm sorry, an error has occurred", error} );
   }
 }
 
 exports.saveArticle = async function(req, res) {
   try {
-    var article = await Article.findOne({_id: req.params.id});
-
-    // var title = article.title;
-    
+    const article = await Article.findOne({_id: req.params.id});
+    // updating saved article model
     const savedArticle  = new SavedArticle({
-      title: article.title,
-      summary: article.summary,
-      href: article.href
+      _id: article._id,
+      title: article.title
     });
-
     await savedArticle.save();
-    console.log("article saved");
-    res.json({message: "OK", savedArticle});
+    res.render("saved", {message: "Article was successfully saved", savedArticle});
   }
-  catch (e) {
-    console.log(`error: ${e}`);
-    res.json({error: `Uh Oh... we could not save your article. Have you already saved this article? "${article.title}"`});
+  catch (error) {
+    res.render('error', {message: "I'm sorry, an error has occurred", error} );
+  }
+}
+
+exports.getSavedArticles = async function(req, res) {
+  try {
+    const saved = await SavedArticle.find({});
+    const id_ary = saved.map(el => new mongoose.Types.ObjectId(el._id));
+    const articles = await Article.find({ _id: {$in: id_ary} });
+    res.render('savedarticles', {articles});
+  }
+  catch (error) {
+    res.render('error', {message: "I'm sorry, an error has occurred", error} );
+  }
+}
+
+exports.saveComment = async function(req, res) {
+  try {
+
+  }
+  catch (error) {
+    res.render('error', {message: "I'm sorry, an error has occurred", error} );
   }
 }

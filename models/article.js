@@ -1,22 +1,26 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let ArticleSchema = new Schema({
+const ArticleSchema = new Schema({
     title: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
+    },
+  
+    summary: {
+      type: String
+    },
     
-      summary: {
-         type: String
-      },
-      
-      href: {
-        type: String,
-        required: true,
-        unique: true,
-        dropDups: true
-      }
+    href: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+
+    note: {
+      type: Schema.Types.ObjectId,
+      ref: "note"
+    }
 });
 
 const Article = mongoose.model("Article", ArticleSchema);

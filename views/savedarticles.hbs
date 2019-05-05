@@ -1,0 +1,17 @@
+<h1>Your saved articles</h1>
+
+<a href="/articles">Click here to view the articles scraped from the NY Times</a>
+
+<ol>
+    {{#each articles}}
+    <li>
+        {{this.title}}
+    </li>
+    <p>
+        {{this.summary}}
+    </p>
+    <a href="https://www.nytimes.com{{this.href}}">
+        https://www.nytimes.com{{this.href}}
+    </a>
+    {{/each}}
+</ol>
