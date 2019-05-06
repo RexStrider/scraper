@@ -1,6 +1,10 @@
 <h1>Your saved articles</h1>
 
-<a href="/articles">Click here to view the articles scraped from the NY Times</a>
+<p>
+    <a href="/articles">
+        Click here to view the articles scraped from the NY Times
+    </a>
+</p>
 
 <ol>
     {{#each articles}}
@@ -10,8 +14,43 @@
     <p>
         {{this.summary}}
     </p>
-    <a href="https://www.nytimes.com{{this.href}}">
-        https://www.nytimes.com{{this.href}}
-    </a>
+
+    <p>
+        <a href="https://www.nytimes.com{{this.href}}">
+            https://www.nytimes.com{{this.href}}
+        </a>
+    </p>
+
+    <ul>
+        {{#each this.notes}}
+        <li>
+            {{this.comment}}
+        </li>
+        <p>
+            by {{this.author}}
+        </p>
+        {{/each}}
+    </ul>
+
+    <form
+        id='{{this.id}}'
+        action='/articles/save/comment/{{this._id}}'
+        method='post'>
+        <label>Name</label>
+        <input
+            type='text'
+            name="author" />
+        <input
+            type="submit"
+            value="Submit" />
+    </form>
+    <section>
+        <label>Post a comment</label>
+        <textarea
+            form="{{this.id}}"
+            class='textarea'
+            type="text"
+            name="comment"></textarea>
+    </section>
     {{/each}}
 </ol>

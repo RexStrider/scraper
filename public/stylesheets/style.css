@@ -17,5 +17,23 @@ a:hover {
 }
 
 li {
-  margin-top: 25px;
+  font-size: 18px;
+  /* margin-top: 25px; */
+}
+
+form {
+  margin-top: 10px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+
+  width: 300px;
+  
+  margin-top: 10px;
+}
+
+textarea {
+  height: 80px;
 }

@@ -17,10 +17,12 @@ const ArticleSchema = new Schema({
       unique: true,
     },
 
-    note: {
-      type: Schema.Types.ObjectId,
-      ref: "note"
-    }
+    notes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Note"
+      }
+    ]
 });
 
 const Article = mongoose.model("Article", ArticleSchema);

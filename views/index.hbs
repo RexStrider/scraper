@@ -1,10 +1,18 @@
 <h2>To scrape the most recent articles from the New York Times, go to the following link</h2>
 
-<a href="/articles/create">NYT scraper</a>
+<p>
+    <a href="/articles/create">
+        NYT scraper
+    </a>
+</p>
 
-<h2>Saved articles</h2>
+<h2>To revisit any of the articles you have saved, go to the following link</h2>
 
-<a href="/articles/save">Click here to see the articles you have saved</a>
+<p>
+    <a href="/articles/save">
+        Saved articles
+    </a>
+</p>
 
 <h1>Articles scraped from the New York Times</h1>
 
@@ -17,12 +25,25 @@
     <p>
         {{this.summary}}
     </p>
-    <a href="https://www.nytimes.com{{this.href}}">
-        https://www.nytimes.com{{this.href}}
-    </a>
-    <br><br>
-    <a href="/articles/save/{{this._id}}">
-        Save this article
-    </a>
+    <ul>
+        {{#each this.notes}}
+        <li>
+            {{this.comment}}
+        </li>
+        <p>
+            by {{this.author}}
+        </p>
+        {{/each}}
+    </ul>
+    <p>
+        <a href="https://www.nytimes.com{{this.href}}">
+            https://www.nytimes.com{{this.href}}
+        </a>
+    </p>
+    <p>
+        <a href="/articles/save/{{this._id}}">
+            Save this article
+        </a>
+    </p>
     {{/each}}
 </ol>
