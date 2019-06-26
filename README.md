@@ -5,3 +5,5 @@ Articles can be saved and comments can be made on the articles.
 
 ### Project can be viewed at the following link,
 [web scraper nyt](https://web-scraper-nyt.herokuapp.com/)
+
+This application is being hosted on heroku and it may take some time to "wake up" the server.
