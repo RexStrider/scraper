@@ -7,3 +7,14 @@ Articles can be saved and comments can be made on the articles.
 [web scraper nyt](https://web-scraper-nyt.herokuapp.com/)
 
 This application is being hosted on heroku and it may take some time to "wake up" the server.
+
+Read the text, follow the links, and the rest should be fairly intuitive.
+
+### Technology
+
+ - MongoDB
+ - Express
+ - Node JS
+ - Handlebars
+ - Cheerio (the web scraper)
+ - JavaScript
